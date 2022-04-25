@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Attrition Prediction</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="style.css">
+
+<!-- Latest compiled and minified CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body>
+ <div class="login">
+
+  <div class="container-fluid p-2 bg-gradient text-white text-center">
+    <h1 class="text-primary">"Employee Attrition Prediction"</h1>
+    <h6 class="text-danger">Data Science with Machine Learning & Python</h6> 
+    <h5 class="text-break">Internship Project in Association with <strong>'TCR Innovation'</strong> </h5>
+  </div>
+</br>
+  
+   <!-- Main Input For Receiving Query to our ML -->
+   <form action="{{ url_for('predict')}}" method="POST" autocomplete="on">
+
+  <div >
+    <div class="row"> 
+      <div class="col-sm-3 col-md-6 bg-light text-black">
+        <table class="table table-striped table-hover ">
+          <tbody>
+            <tr>
+              <th><strong>Age</strong></th>
+              <th>: <input type="number" name="Age" placeholder="18-80" required min="18" max="80"><br><br></th>
+            </tr>
+          
+            <tr>
+              <td><strong>BusinessTravel</strong></td>
+              <th>: <input type="radio" name="BusinessTravel" id="Rarely" value="Rarely">Rarely    <input type="radio" name="BusinessTravel" id="Frequently" value="Frequently">  Frequently<input type="radio" name="BusinessTravel" id="No Travel"  value="No Travel">No Travel<br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Daily Rate</strong></th>
+              <th>: <input type="number" name="Daily Rate" placeholder="100-1600" required min="100" max="1600" size="30"><br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Department</strong></th>
+              <th>:<input type="radio" name="Department" id="Research & Development" value="Research & Development">Research & Development  <input type="radio" name="Department" id="Human Resources" value="Human Resources">Human Resources  <input type="radio" name="Department" id="Sales"  value="Sales">Sales<br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Distance From Home</strong></th>
+              <th>: <input type="number" name="Distance From Home" placeholder="1-29" required min="1" max="29"><br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Education</strong></th>
+              <th>: <input type="number" name="Education" placeholder="1-5" required min="1" max="5"><br><br></th>
+            </tr>
+            
+            <tr>
+              <th><strong>Education Field</strong></th>
+              <th>: <input type="radio" name="Education Field" id="Life Sciences" value="Life Sciences">Life Sciences  <input type="radio" name="Education Field" id="Medical" value="Medical">Medical  <input type="radio" name="Education Field" id="Marketing"  value="Marketing">Marketing  <input type="radio" name="Education Field" id="Technical Degree"  value="Technical Degree">Technical Degree  <input type="radio" name="Education Field" id="Human Resources"  value="Human Resources">Human Resources  <input type="radio" name="Education Field" id="Other"  value="Other">Other  <br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Environment Satisfaction</strong></th>
+              <th>: <input type="number" name="Environment Satisfaction" placeholder="1-4" required min="1" max="4"><br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Gender</strong></th>
+              <th>: <input type="radio" name="Gender" id="Male" value="Male">Male  <input type="radio" name="Gender" id="Female" value="Female">Female<br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Hourly Rate</strong></th>
+              <th>: <input type="number" name="Hourly Rate" placeholder="30-100" required min="30" max="100"><br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Job Involvement</strong></th>
+              <th>: <input type="number" name="Job Involvement" placeholder="1-4" required min="1" max="4"><br><br></th>
+            </tr>
+
+            <tr>
+              <th> <strong>Job Level</strong> </th>
+              <th>: <input type="number" name="Job Level" placeholder="1-5" required min="1" max="5"><br><br></th>
+            </tr>
+
+            <tr>
+              <th> <strong>Job Role</strong> </th>
+              <th> : <input type="radio" name="Job Role" id="Sales Executive" value="Sales Executives">Sales Executive  <input type="radio" name="Job Role" id="Research Scientist" value="Research Scientist">Research Scientist  <input type="radio" name="Job Role" id="Laboratory Technician"  value="Laboratory Technician">Laboratory Technician  <input type="radio" name="Job Role" id="Manufacturing Director"  value="Manufacturing Director">Manufacturing Director  <input type="radio" name="Job Role" id="Healthcare Representative"  value="Healthcare Representative">Healthcare Representative  <input type="radio" name="Job Role" id="Manager" value="Manager">Manager  <input type="radio" name="Job Role" id="Sales Representative" value="Sales Representative">Sales Representative  <input type="radio" name="Job Role" id="Research Director" value="Research Director">Research Director  <input type="radio" name="Job Role" id="Human Resource" value="Human Resources">Human Resources  <br><br></th>
+            </tr>
+
+            <tr>
+              <th>  <strong>Job Satisfaction</strong> </th>
+              <th>  : <input type="number" name="Job Satisfaction" placeholder="1-4" required min="1" max="4"><br><br></th>
+            </tr>
+
+
+          </tbody>
+        </table>
+        
+      </div>
+      <div class="col-sm-9 col-md-6 bg-light text-black">
+        <table class="table table-striped table-hover">
+          <tbody>
+            <tr>
+              <th><strong>Marital Status</strong></th>
+              <th>: <input type="radio" name="Marital Status" id="Married" value="Married">Married  <input type="radio" name="Marital Status" id="Single" value="Single">Single  <input type="radio" name="Marital Status" id="Divorced" value="Divorced">Divorced<br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Monthly Income</strong></th>
+              <th>: <input type="number" name="Monthly Income" placeholder="1000-20000" required min="1000" max="20000" size="30">  (1000-20000)<br><br></th>
+            </tr>
+          
+
+            <tr>
+              <th><strong>Number of Companies Worked in</strong></th>
+              <th>: <input type="number" name="Number of Companies Worked in" placeholder="0-9" required min="1" max="9"><br><br></th>
+            </tr>
+          
+
+            <tr>
+              <th><strong>Over Time</strong></th>
+              <th>:  <input type="radio" name="Over Time" id="Yes" value="Yes">Yes  <input type="radio" name="Over Time" id="No" value="No">No<br><br></th>
+            </tr>
+          
+
+            <tr>
+              <th> <strong>Performance Rating</strong></th>
+              <th>: <input type="number" name="Performance Rating" placeholder="1-4" required min="1" max="4"><br><br></th>
+            </tr>
+          
+
+            <tr>
+              <th><strong>Relationship Satisfaction</strong></th>
+              <th><input type="number" name="Relationship Satisfaction" placeholder="1-4" required min="1" max="4"><br><br></th>
+            </tr>
+          
+
+            <tr>
+              <th><strong>Stock Option Level</strong></th>
+              <th>: <input type="number" name="Stock Option Level" placeholder="0-3" required min="0" max="3"><br><br></th>
+            </tr>
+          
+            <tr>
+              <th><strong>Total Working Years</strong></th>
+              <th>: <input type="number" name="Total Working Years" placeholder="0-40" required min="0" max="40"><br><br></th>
+            </tr>
+          
+            <tr>
+              <th><strong>Training Times Last Year</strong></th>
+              <th>: <input type="number" name="Training Times Last Year" placeholder="0-6" required min="0" max="6"><br><br></th>
+            </tr>
+          
+            <tr>
+              <th><strong>Work Life Balance</strong></th>
+              <th>: <input type="number" name="Work Life Balance" placeholder="1-4" required min="1" max="4"><br><br></th>
+            </tr>
+          
+            <tr>
+              <th><strong>Years At Company</strong></th>
+              <th>: <input type="number" name="Years At Company" placeholder="0-40" required min="0" max="40"><br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Years In Current Role</strong></th>
+              <th>: <input type="number" name="Years In Current Role" placeholder="0-18" required min="0" max="18"><br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Years Since Last Promotion</strong></th>
+              <th>: <input type="number" name="Years Since Last Promotion" placeholder="0-15" required min="0" max="15"><br><br></th>
+            </tr>
+
+            <tr>
+              <th><strong>Years With Curr Manager</strong></th>
+              <th>: <input type="number" name="Years With Curr Manager" placeholder="0-17" required min="0" max="17"><br><br></th>
+            </tr>             
+          </tbody>
+        </table>        
+    </form>
+    </div>
+    <div class="text-center"><br><button type="submit" class="btn btn-primary btn-block btn-large">Predict Attrition</button></div>
+    
+
+   <br>
+   <br>
+     <h1 class="text-center text-danger">{{ prediction_text }}</h1>
+
+ </div>
+
+ <footer id="sticky-footer" class="flex-shrink-0 py-2 bg-dark text-white-50">
+  <div class="container text-center">
+    <h6>Copyright &copy; Pravin Bhagwat</h6>
+    <small>PDEA'S College of Engineering Pune</small>
+  </div>
+</footer>
+
+</body>
+</html>
